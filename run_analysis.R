@@ -76,4 +76,4 @@ unlink(temp)
 rm(list = grep(ls(), pattern='solution', inv=T, value=T))
 
 # write solution data frame to disk
-write.table(solution, "solution.txt")
+write.table(solution, "solution.txt", row.names = FALSE)
