@@ -20,10 +20,55 @@ CODEBOOK
 Units taken from "Notes" section of this page:
 http://archive.ics.uci.edu/ml/datasets/Smartphone-Based+Recognition+of+Human+Activities+and+Postural+Transitions
 
+TRANSFORMATION  
+The steps performed were as follows:
+
+1. Load the dplyr package.
+
+2. Download zip archive into temp file "temp"
+
+3. Read column names from features.txt file (located in downloaded zip archive) and store in variable "features"
+
+4. Read activity labels from activity_labels.txt file and store in var "activity_labels"
+
+5. Read test rows, using descriptive col names in features var, and store in var "test"
+
+6. Read test activity ids and store in var "testY"
+
+7. Read test subject ids and store in var "testS"
+
+8. Use cbind to (column) merge test, testY, and testS data frames and store in var "test"
+
+9. Read training rows, using descriptive column names in features var, and store in var "train"
+
+10. Read training activity ids and store in var "trainY"
+
+11. Read training subject ids and store in var "trainS"
+
+12. Use cbind to (column) merge train, trainY, and trainS data frames and store in var "train"
+
+13. Use rbind to (row) merge test and training data frames and store in var "d"
+
+14. Use grep and subsetting to extract subject.id, activity.id and columns containing measurements of mean and std and store in var "d2"
+
+15. Use dplyr::mutate and dplyr::select to denormalize d2 by replacing activity.id with its associated label and store result in var "d3"
+
+16. Use dplyr::group_by and dplyr::summarize_each to create an independent tidy data set containing the average of each variable for each activity and subject and store result in var "solution"
+
+17. Use gsub and names() to remove "()" from and prepend "avg-of-" to column names
+
+18. Use unlink() to unlink temporary file
+unlink(temp)
+
+19. Use rm() to remove all intermediate R objects
+
+20. Use write.table() to write solution data frame to disk as "solution.txt"
+
+
 <table>
 <tr><th>VARIABLE NAME</th><th>POS</th><th>UNITS</th><th>VALUES OR EXPLANATION</th></tr>
 <tr><td>subject.id</td><td>1</td><td> - </td><td>the id of the subject being measured</td></tr>
-<tr><td>activity</td><td>2</td><td></td><td>WALKING<br/>WALKING_UPSTAIRS<br/>WALKING_DOWNSTAIRS<br/>SITTING</br>STANDING<br/>LAYING</td></tr>
+<tr><td>activity</td><td>2</td><td> - </td><td>WALKING<br/>WALKING_UPSTAIRS<br/>WALKING_DOWNSTAIRS<br/>SITTING</br>STANDING<br/>LAYING</td></tr>
 <tr><td>avg.of.tBodyAcc.mean.X</td><td>3</td><td>m/s^2</td><td>Mean body X-axial linear acceleration grouped by subject.id, activity, aggregated by mean</td></tr>
 <tr><td>avg.of.tBodyAcc.mean.Y</td><td>4</td><td>m/s^2</td><td>Mean body Y-axial linear acceleration grouped by subject.id, activity, aggregated by mean</td></tr>
 <tr><td>avg.of.tBodyAcc.mean.Z</td><td>5</td><td>m/s^2</td><td>Mean body Z-axial linear acceleration grouped by subject.id, activity, aggregated by mean</td></tr>
